@@ -6,7 +6,9 @@ int main() {
     // Números laterais
     int linha[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     // Tabuleiro 10x10
-    char tabuleiro[10][10];
+    char tabuleiro[10][10], posicao[5];
+
+    
     
     // Preencher o tabuleiro com '0' (água)
     for( int i = 0; i < 10; i++) {
@@ -18,15 +20,24 @@ int main() {
     // Imprimir título
     printf("JOGO DE TABULEIRO BATALHA NAVAL\n\n");
 
-    
+
     //navio horizontal 
     tabuleiro[8][6] = '3';
     tabuleiro[8][7] = '3';
     tabuleiro[8][8] = '3';
+    //navio diagonal
+    tabuleiro[0][0] = '3';
+    tabuleiro[1][1] = '3';
+    tabuleiro[2][2] = '3';
+
+    tabuleiro[9][0] = '3';
+    tabuleiro[8][1] = '3';
+    tabuleiro[7][2] = '3';
     //navio vertical
     tabuleiro[5][5] = '3'; 
-    tabuleiro[4][6] = '3';
-    tabuleiro[3][7] = '3';
+    tabuleiro[6][5] = '3';
+    tabuleiro[7][5] = '3';
+
 
     
     // Imprimir as letras das colunas
