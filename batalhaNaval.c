@@ -1,61 +1,58 @@
 #include <stdio.h>
+#define LINHAS 10
+#define COLUNAS 10
 
 int main() {
-    // Coluna
-    char coluna[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-    // Números laterais
-    int linha[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    // Tabuleiro 10x10
-    char tabuleiro[10][10], posicao[5];
+    char tabuleiro[LINHAS][COLUNAS];
 
-    
-    
     // Preencher o tabuleiro com '0' (água)
-    for( int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            tabuleiro[i][j] = '0';  // Preencher com '0' para representar água
+    for (int i = 0; i < LINHAS; i++) {
+        for (int j = 0; j < COLUNAS; j++) {
+            tabuleiro[i][j] = '0';
         }
     }
 
-    // Imprimir título
-    printf("JOGO DE TABULEIRO BATALHA NAVAL\n\n");
-
-
-    //navio horizontal 
-    tabuleiro[8][6] = '3';
-    tabuleiro[8][7] = '3';
-    tabuleiro[8][8] = '3';
-    //navio diagonal
-    tabuleiro[0][0] = '3';
-    tabuleiro[1][1] = '3';
-    tabuleiro[2][2] = '3';
-
-    tabuleiro[9][0] = '3';
-    tabuleiro[8][1] = '3';
-    tabuleiro[7][2] = '3';
-    //navio vertical
-    tabuleiro[5][5] = '3'; 
-    tabuleiro[6][5] = '3';
-    tabuleiro[7][5] = '3';
-
-
+    // Adicionar habilidades especiais
+    int centroX = 5, centroY = 5; // Ponto central para exemplo
     
-    // Imprimir as letras das colunas
-    printf("   ");
-    for (int i = 0; i < 10; i++) {
-        printf("%c  ", coluna[i]);  // Imprimir as letras de A a J
+    // Cone
+    for (int i = 0; i < 3; i++) {
+        for (int j = -i; j <= i; j++) {
+            if (centroX + i < LINHAS && centroY + j >= 0 && centroY + j < COLUNAS) {
+                tabuleiro[centroX + i][centroY + j] = '5';
+            }
+        }
     }
-    printf("\n");
 
-    // Imprimir as linhas com os números laterais e os valores do tabuleiro
-    for (int i = 0; i < 10; i++) {
-        printf("%2d", linha[i]);  // Imprimir os números das linhas
-        for (int j = 0; j < 10; j++) {
-            printf(" %c ", tabuleiro[i][j]);  // Imprimir os valores do tabuleiro
+    // Cruz
+    for (int i = -2; i <= 2; i++) {
+        if (centroX + i >= 0 && centroX + i < LINHAS) {
+            tabuleiro[centroX + i][centroY] = '5';
+        }
+        if (centroY + i >= 0 && centroY + i < COLUNAS) {
+            tabuleiro[centroX][centroY + i] = '5';
+        }
+    }
+
+    // Octaedro
+    for (int i = -2; i <= 2; i++) {
+        for (int j = -2 + abs(i); j <= 2 - abs(i); j++) {
+            if (centroX + i >= 0 && centroX + i < LINHAS && centroY + j >= 0 && centroY + j < COLUNAS) {
+                tabuleiro[centroX + i][centroY + j] = '5';
+            }
+        }
+    }
+
+    // Imprimir tabuleiro
+    printf("   A  B  C  D  E  F  G  H  I  J\n");
+    for (int i = 0; i < LINHAS; i++) {
+        printf("%2d", i + 1);
+        for (int j = 0; j < COLUNAS; j++) {
+            printf(" %c ", tabuleiro[i][j]);
         }
         printf("\n");
     }
     
-
     return 0;
 }
+
